@@ -1,0 +1,142 @@
+#!/bin/bash
+
+colors=(
+	"black"
+	"red"
+	"green"
+	"yellow"
+	"blue"
+	"magenta"
+	"cyan"
+	"white"
+)
+
+declare -A ansi_codes
+ansi_codes=(
+	["black"]="30"
+	["red"]="31"
+	["green"]="32"
+	["yellow"]="33"
+	["blue"]="34"
+	["magenta"]="35"
+	["cyan"]="36"
+	["white"]="37"
+)
+
+declare -A rgb_colors
+rgb_colors=(
+	["black"]="55 55 55"
+	["red"]="255 0 0"
+	["green"]="0 255 0"
+	["yellow"]="255 255 0"
+	["blue"]="0 0 255"
+	["magenta"]="255 0 255"
+	["cyan"]="0 255 255"
+	["white"]="255 255 255"
+)
+
+flags=(
+	-p --prompt
+	-k --keyboard
+	-w --wallpaper
+	-a --all
+)
+
+function usage () {
+	echo Invalid use of colorize!
+	(exit 1)
+}
+
+function is_in () {
+	array_name=$2[@]
+	array=("${!array_name}")
+	[[ " ${array[*]} " == *" $1 "* ]]
+}
+
+function colorize_prompt () {
+	echo Changing prompt color to $1 ...
+	prompt="\[\e[1;${ansi_codes[$1]}m\]<\u\[\e[0m\] \w\[\e[1;${ansi_codes[$1]}m\]>\[\e[0m\] "
+	export PS1=$prompt
+}
+
+function colorize_keyboard () {
+	echo Changing keyboard color to $1 ...
+	keyboard_config_file="/sys/class/leds/rgb:kbd_backlight/multi_intensity"
+	echo ${rgb_colors[$1]} | sudo tee $keyboard_config_file > /dev/null
+}
+
+function colorize_wallpaper () {
+	echo Changing wallpaper color to $1 ...
+	wallpaper="file:///home/nace/Pictures/Wallpapers/ubuntu-$1.png"
+	gsettings set org.gnome.desktop.background picture-uri-dark $wallpaper
+}
+
+function colorize () {
+	case $1 in	
+		-p | --prompt )
+			colorize_prompt $2
+			;;
+
+		-k | --keyboard )
+			colorize_keyboard $2
+			;;
+
+		-w | --wallpaper )
+			colorize_wallpaper $2
+			;;
+
+		-a | --all )
+			colorize_prompt $2
+			colorize_keyboard $2
+			colorize_wallpaper $2
+			echo $2 > ~/bin/theme
+			;;
+	esac
+}
+
+function args_from_input () {
+	if ! [[ -f ~/bin/theme ]]; then
+		default_theme=white
+		echo $default_theme > ~/bin/theme
+	fi
+
+	case $# in
+		0)
+			flag=--all
+			color=$(< ~/bin/theme)
+			;;
+
+		1)
+			if is_in $1 colors; then
+				flag=--all
+				color=$1
+			elif is_in $1 flags; then
+				flag=$1
+				color=$(< ~/bin/theme)
+			else
+				return 1
+			fi
+			;;
+
+		2)
+			if is_in $1 flags && is_in $2 colors; then
+				flag=$1
+				color=$2
+			else
+				return 1
+			fi
+			;;
+
+		*)
+			return 1
+			;;
+	esac
+	echo $flag $color
+}
+
+if args=$(args_from_input "$@"); then
+	colorize $args
+else
+	usage
+fi
+
