@@ -35,11 +35,24 @@ rgb_colors=(
 	["magenta"]="255 0 255"
 )
 
+declare -A themes
+themes=(
+	["white"]="Yaru-sage-dark"
+	["black"]="Yaru-bark-dark"
+	["red"]="Yaru-viridian-dark"
+	["green"]="Yaru-viridian-dark"
+	["blue"]="Yaru-blue-dark"
+	["cyan"]="Yaru-prussiangreen-dark"
+	["yellow"]="Yaru-purple-dark"
+	["magenta"]="Yaru-magenta-dark"
+)
+
 options=(
 	-a --all
 	-h --help
 	-k --keyboard
 	-p --prompt
+	-t --theme
 	-w --wallpaper
 )
 
@@ -68,6 +81,7 @@ Options:
                        for changes to appear, color has to be run with
                        source;
                        changes appear in active termnial only
+  -t, --theme        colorize theme accent
   -w, --wallpaper    colorize the wallpaper
 
 Exit status:
@@ -140,6 +154,12 @@ function colorize_wallpaper() {
 	gsettings set org.gnome.desktop.background picture-uri-dark $wallpaper
 }
 
+function colorize_theme() {
+	theme="${themes[$1]}"
+	echo Changing theme to $theme ...
+	gsettings set org.gnome.desktop.interface gtk-theme $theme
+}
+
 function colorize() {
 	case $1 in
 		-h | --help )
@@ -154,6 +174,10 @@ function colorize() {
 			colorize_keyboard $2
 			;;
 
+		-t | --theme )
+			colorize_theme $2
+			;;
+
 		-w | --wallpaper )
 			colorize_wallpaper $2
 			;;
@@ -162,6 +186,7 @@ function colorize() {
 			colorize_prompt $2
 			colorize_keyboard $2
 			colorize_wallpaper $2
+			colorize_theme $2
 			echo $2 > ~/bin/theme
 			;;
 	esac
