@@ -19,6 +19,7 @@ todo_file=~/Documents/text/todo.md
 input_without_spaces="${1// }"
 case $input_without_spaces in
     "" )
+        clear
         cat $todo_file
         ;;
 
