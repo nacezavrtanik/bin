@@ -7,7 +7,8 @@ Display the contents of the todo.md file.
 
 Options:
   -h, --help    display this help and exit  
-  -v, --vim     open the todo.md file in vim
+  -v, --vim     edit the todo.md file in vim
+                  before displaying contents
 
 Exit status:
   0    if everything OK,
@@ -29,6 +30,8 @@ case $input_without_spaces in
 
     -v | --vim )
         vim $todo_file
+        clear
+        cat $todo_file
         ;;
 
     * )
