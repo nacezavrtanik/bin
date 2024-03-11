@@ -7,11 +7,13 @@ info_string=$(echo -e "info $speakers_id" | bluetoothctl)
 echo "Toggling connection to speakers ..."
 
 if [[ $info_string != *"$is_connected_flag"* ]]; then
-	echo -e "power on" | bluetoothctl
-	sleep 0.5
-	echo -e "connect $speakers_id" | bluetoothctl
+    echo -e "power on" | bluetoothctl > /dev/null
+    sleep 0.5
+    echo -e "connect $speakers_id" | bluetoothctl > /dev/null
+    echo Connected.
 else
-	echo -e "disconnect $speakers_id" | bluetoothctl
-	echo -e "power off" | bluetoothctl
+    echo -e "disconnect $speakers_id" | bluetoothctl > /dev/null
+    echo -e "power off" | bluetoothctl > /dev/null
+    echo Disconnected.
 fi
 
