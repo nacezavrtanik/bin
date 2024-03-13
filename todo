@@ -7,7 +7,7 @@ Display the contents of the .todo.md file.
 
 Options:
   -h, --help    display this help and exit  
-  -v, --vim     edit the todo.md file in vim
+  -v, --vim     edit the .todo.md file in vim
                   before displaying contents
 
 Exit status:
