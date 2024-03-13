@@ -1,0 +1,24 @@
+#!/bin/bash
+
+echo Starting custom bash setup ...
+
+echo Installing packages ...
+sudo apt install fzf 
+echo Installed fzf!
+
+echo Adding config to .bashrc ...
+config_line=". ~/bin/custom_config"
+config_segment="
+# CUSTOM MODIFICATIONS
+$config_line
+"
+if [[ -z "$(cat ~/.bashrc | grep "$config_line")" ]]
+    then
+        echo "$config_segment" >> ~/.bashrc
+        echo Config added to .bashrc!
+    else
+        echo Config in .bashrc had already been set up!
+fi        
+
+echo Setup complete!
+
