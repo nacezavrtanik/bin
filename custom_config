@@ -1,0 +1,16 @@
+#!/bin/bash
+
+# To enable these modifications throughout bash,
+# source this file in your .bashrc file, like so:
+# . /bin/custom_config
+
+# enable custom commands
+export PATH=$PATH:~/bin
+
+# terminal prompt
+. color --prompt > /dev/null
+
+# aliases
+alias go='. go'    # . to enable immediate prompt change
+alias fzf='fzf --height 33% --layout reverse --border sharp --info hidden --prompt "<filter> " --pointer " >" --cycle --color "prompt:black,pointer:$(< ~/bin/theme)"'
+
