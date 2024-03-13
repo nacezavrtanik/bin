@@ -7,7 +7,7 @@ sudo apt install fzf
 echo Installed fzf!
 
 echo Adding config to .bashrc ...
-config_line=". ~/bin/custom_config"
+config_line=". ~/bin/.custom_config"
 config_segment="
 # CUSTOM MODIFICATIONS
 $config_line

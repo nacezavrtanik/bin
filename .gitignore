@@ -1,2 +1,9 @@
+# todo file for this project
 todo.md
-theme
+ 
+# todo file for use with todo command
+.todo.md
+
+# theme config file
+.theme 
+
