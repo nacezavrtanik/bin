@@ -1,41 +1,204 @@
 #!/bin/bash
 
-function usage() {
-cat << EOF
-Usage: todo [OPTION]
-Display the contents of the .todo.md file.
+options=(
+    -d --delete
+    -h --help
+	-l --list
+    -n --new
+    -o --open
+    -s --show
+)
+
+invalid_syntax=1
+name_not_alphanumeric=11
+name_already_exists=12
+name_doesnt_exist=13
+
+
+usage() {
+    cat << EOF
+Usage: todo [OPTION] [NAME]
+Manage TODOs.
 
 Options:
-  -h, --help    display this help and exit  
-  -v, --vim     edit the .todo.md file in vim
-                  before displaying contents
+  -d, --delete    delete TODO with name NAME
+  -h, --help      display this help and exit
+  -l, --list      list all TODOs
+  -n, --new       create new TODO with name NAME
+  -o, --open      open TODO with name NAME in Vim;
+                    this is the default option if OPTION is not specified;
+                    if NAME is not specified, the default TODO is opened
+  -s, --show      show TODO with name NAME in the terminal;
+                    if NAME is not specified, the default TODO is shown
 
 Exit status:
-  0    if everything OK,
-  1    otherwise.
+  0     everything OK,
+  1     invalid syntax,
+  11    name is not alphanumeric,
+  12    name already exists,
+  13    name does not exist.
 EOF
 }
 
-todo_file=~/bin/.todo.md
-input_without_spaces="${1// }"
-case $input_without_spaces in
-    "" )
-        clear
-        cat $todo_file
-        ;;
+delete() {
+    if ! [ -f "$1.md" ]; then
+        echo "ERROR: Name *$1* does not exist ..."
+        return "$name_doesnt_exist"
+    fi
 
-    -h | --help )
-        usage
-        ;;
+    rm "$1.md"
+    echo "Deleted *$1*!"
+}
 
-    -v | --vim )
-        vim $todo_file
-        clear
-        cat $todo_file
-        ;;
+list() {
+    ls -1 |
+        grep '.md$' |
+        sed -e 's/^/* /' -e 's/.md$//'
+}
 
-    * )
-        usage
-        (exit 1)
-esac
+new() {
+    if echo "$1" | grep -Ev '^[[:alnum:]]+$' > /dev/null; then
+        echo "ERROR: Name *$1* is not alphanumeric ..."
+        return "$name_not_alphanumeric"
+    elif [[ -f "$1.md" ]]; then
+        echo "ERROR: Name *$1* already exists ..."
+        return "$name_already_exists"
+    fi
+
+    echo > "$1.md"
+    echo "$1" | tr [:lower:] [:upper:] >> "$1.md"
+    head --bytes=${#1} < /dev/zero | tr '\0' '=' >> "$1.md"
+    echo -e "\n" >> "$1.md"
+
+    echo "Created *$1*!"
+}
+
+open() {
+    if ! [ -f "$1.md" ]; then
+        echo "ERROR: Name *$1* does not exist ..."
+        return "$name_doesnt_exist"
+    fi
+
+    vim "$1.md"
+    clear
+    cat "$1.md"
+}
+
+show() {
+    if ! [ -f "$1.md" ]; then
+        echo "ERROR: Name *$1* does not exist ..."
+        return "$name_doesnt_exist"
+    fi
+
+    clear
+    cat "$1.md"
+}
+
+
+initial_dir=$(pwd)
+todos_dir=~/bin/.todos/
+default_file=todo
+
+
+args_from_input() {
+	case $# in
+		0)
+			flag=--open
+            value=$default_file
+			;;
+
+		1)
+            case $1 in
+                -h | --help )
+                    flag=--help
+                    value=''
+                    ;;
+
+                -l | --list )
+                    flag=--list
+                    value=''
+                    ;;
+
+                -o | --open )
+                    flag=--open
+                    value=$default_file
+                    ;;
+
+                -s | --show )
+                    flag=--show
+                    value=$default_file
+                    ;;
+
+                *)
+                    return "$invalid_syntax"
+                    ;;
+            esac
+			;;
+
+		2)
+			if [[ " ${options[*]} " == *" $1 "* ]]; then
+				flag=$1
+				value=$2
+			else
+				return "$invalid_syntax"
+			fi
+			;;
+
+		*)
+			return "$invalid_syntax"
+			;;
+	esac
+	printf -- "$flag $value"
+}
+
+manage_todos() {
+    cd "$todos_dir"
+
+    case $1 in
+        -d | --delete )
+            delete $2
+            exit_code=$?
+            ;;
+
+        -h | --help )
+            usage
+            exit_code=$?
+            ;;
+
+        -l | --list )
+            list
+            exit_code=$?
+            ;;
+
+        -n | --new )
+            new $2
+            exit_code=$?
+            ;;
+
+        -o | --open )
+            open $2
+            exit_code=$?
+            ;;
+
+        -s | --show )
+            show $2
+            exit_code=$?
+            ;;
+    esac
+
+    cd "$initial_dir"
+    return "$exit_code"
+}
+
+
+if args=$(args_from_input "$@"); then
+    manage_todos $args
+    (exit $?)
+else
+    cat << EOF
+Invalid syntax ...
+Try 'todo --help' for more information.
+EOF
+    (exit "$invalid_syntax")
+fi
 

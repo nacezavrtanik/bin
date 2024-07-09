@@ -1,10 +1,13 @@
 # personal files for working in this repo
 setup
 todo.md
- 
-# todo file for use with todo command
-.todo.md
+
+# todos dir for use with todo command
+.todos/
 
 # theme config file
-.theme 
+.theme
+
+# vim backup files
+*.swp
 
