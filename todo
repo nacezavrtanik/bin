@@ -97,36 +97,38 @@ show() {
 
 initial_dir=$(pwd)
 todos_dir=~/bin/.todos/
-default_file=todo
+[ -d "$todos_dir" ] || mkdir $todos_dir
+default_name=todo
+[ -f "$todos_dir/$default_name.md" ] || touch $todos_dir/$default_name.md
 
 
 args_from_input() {
 	case $# in
 		0)
 			flag=--open
-            value=$default_file
+            name=$default_name
 			;;
 
 		1)
             case $1 in
                 -h | --help )
                     flag=--help
-                    value=''
+                    name=''
                     ;;
 
                 -l | --list )
                     flag=--list
-                    value=''
+                    name=''
                     ;;
 
                 -o | --open )
                     flag=--open
-                    value=$default_file
+                    name=$default_name
                     ;;
 
                 -s | --show )
                     flag=--show
-                    value=$default_file
+                    name=$default_name
                     ;;
 
                 *)
@@ -138,7 +140,7 @@ args_from_input() {
 		2)
 			if [[ " ${options[*]} " == *" $1 "* ]]; then
 				flag=$1
-				value=$2
+				name=$2
 			else
 				return "$invalid_syntax"
 			fi
@@ -148,7 +150,7 @@ args_from_input() {
 			return "$invalid_syntax"
 			;;
 	esac
-	printf -- "$flag $value"
+	printf -- "$flag $name"
 }
 
 manage_todos() {
