@@ -6,6 +6,7 @@ options=(
 	-l --list
     -n --new
     -o --open
+    -r --rename
     -s --show
 )
 
@@ -17,7 +18,7 @@ name_doesnt_exist=13
 
 usage() {
     cat << EOF
-Usage: todo [OPTION] [NAME]
+Usage: todo [OPTION] [NAME] [NAME2]
 Manage TODOs.
 
 Options:
@@ -28,6 +29,7 @@ Options:
   -o, --open      open TODO with name NAME in Vim;
                     this is the default option if OPTION is not specified;
                     if NAME is not specified, the default TODO is opened
+  -r, --rename    rename TODO with name NAME to TODO with name NAME2
   -s, --show      show TODO with name NAME in the terminal;
                     if NAME is not specified, the default TODO is shown
 
@@ -82,6 +84,34 @@ open() {
     vim "$1.md"
     clear
     cat "$1.md"
+}
+
+rename() {
+    if ! [ -f "$1.md" ]; then
+        echo "ERROR: Name *$1* does not exist ..."
+        return "$name_doesnt_exist"
+    elif echo "$2" | grep -Ev '^[[:alnum:]]+$' > /dev/null; then
+        echo "ERROR: Name *$2* is not alphanumeric ..."
+        return "$name_not_alphanumeric"
+    elif [[ -f "$2.md" ]]; then
+        echo "ERROR: Name *$2* already exists ..."
+        return "$name_already_exists"
+    fi
+
+    mv $1.md $2.md
+    old_title=$(echo $1 | tr [:lower:] [:upper:])
+    old_underline=$(head --bytes="${#old_title}" < /dev/zero | tr '\0' '=')
+    if
+        (sed -n -e '2p' "$2.md" | grep "^$old_title$" > /dev/null) &&
+        (sed -n -e '3p' "$2.md" | grep "^$old_underline$" > /dev/null)
+    then
+        new_title=$(echo $2 | tr [:lower:] [:upper:])
+        new_underline=$(head --bytes="${#new_title}" < /dev/zero | tr '\0' '=')
+        sed -i -e "2 s/^$old_title$/$new_title/" "$2.md"
+        sed -i -e "3 s/^$old_underline$/$new_underline/" "$2.md"
+    fi
+
+    echo "*$1* renamed to *$2*!"
 }
 
 show() {
@@ -146,11 +176,21 @@ args_from_input() {
 			fi
 			;;
 
+        3)
+            if [ "$1" = "-r" ] || [ "$1" = "--rename" ]; then
+                flag=--rename
+                name=$2
+                name2=$3
+            else
+                return "$invalid_syntax"
+            fi
+            ;;
+
 		*)
 			return "$invalid_syntax"
 			;;
 	esac
-	printf -- "$flag $name"
+	printf -- "$flag $name $name2"
 }
 
 manage_todos() {
@@ -179,6 +219,11 @@ manage_todos() {
 
         -o | --open )
             open $2
+            exit_code=$?
+            ;;
+
+        -r | --rename )
+            rename $2 $3
             exit_code=$?
             ;;
 
