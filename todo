@@ -1,15 +1,5 @@
 #!/bin/bash
 
-options=(
-    -d --delete
-    -h --help
-	-l --list
-    -n --new
-    -o --open
-    -r --rename
-    -s --show
-)
-
 invalid_syntax=1
 name_doesnt_exist=11
 name_already_exists=12
@@ -130,55 +120,52 @@ todos_dir=~/bin/.todos/
 [ -d "$todos_dir" ] || mkdir $todos_dir
 default_name=todo
 [ -f "$todos_dir/$default_name.md" ] || touch $todos_dir/$default_name.md
+default_flag=--open
 
 
 args_from_input() {
 	case $# in
 		0)
-			flag=--open
+			flag=$default_flag
             name=$default_name
 			;;
 
 		1)
             case $1 in
-                -h | --help )
-                    flag=--help
-                    name=''
-                    ;;
-
-                -l | --list )
-                    flag=--list
-                    name=''
-                    ;;
-
-                -o | --open )
-                    flag=--open
-                    name=$default_name
-                    ;;
-
+                -h | --help | \
+                -l | --list | \
+                -o | --open | \
                 -s | --show )
-                    flag=--show
+                    flag=$1
                     name=$default_name
+                    ;;
+
+                *)
+                    flag=$default_flag
+                    name=$1
+                    ;;
+            esac
+			;;
+
+		2)
+            case $1 in
+                -d | --delete | \
+                -n | --new | \
+                -o | --open | \
+                -s | --show )
+                    flag=$1
+                    name=$2
                     ;;
 
                 *)
                     return "$invalid_syntax"
                     ;;
             esac
-			;;
-
-		2)
-			if [[ " ${options[*]} " == *" $1 "* ]]; then
-				flag=$1
-				name=$2
-			else
-				return "$invalid_syntax"
-			fi
-			;;
+            ;;
 
         3)
             if [ "$1" = "-r" ] || [ "$1" = "--rename" ]; then
-                flag=--rename
+                flag=$1
                 name=$2
                 name2=$3
             else
