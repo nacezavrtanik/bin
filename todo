@@ -11,9 +11,9 @@ options=(
 )
 
 invalid_syntax=1
-name_not_alphanumeric=11
+name_doesnt_exist=11
 name_already_exists=12
-name_doesnt_exist=13
+name_not_alphanumeric=13
 
 
 usage() {
@@ -36,9 +36,9 @@ Options:
 Exit status:
   0     everything OK,
   1     invalid syntax,
-  11    name is not alphanumeric,
+  11    name does not exist,
   12    name already exists,
-  13    name does not exist.
+  13    name is not alphanumeric.
 EOF
 }
 
@@ -59,12 +59,12 @@ list() {
 }
 
 new() {
-    if echo "$1" | grep -Ev '^[[:alnum:]]+$' > /dev/null; then
-        echo "ERROR: Name *$1* is not alphanumeric ..."
-        return "$name_not_alphanumeric"
-    elif [[ -f "$1.md" ]]; then
+    if [[ -f "$1.md" ]]; then
         echo "ERROR: Name *$1* already exists ..."
         return "$name_already_exists"
+    elif echo "$1" | grep -Ev '^[[:alnum:]]+$' > /dev/null; then
+        echo "ERROR: Name *$1* is not alphanumeric ..."
+        return "$name_not_alphanumeric"
     fi
 
     echo > "$1.md"
@@ -90,12 +90,12 @@ rename() {
     if ! [ -f "$1.md" ]; then
         echo "ERROR: Name *$1* does not exist ..."
         return "$name_doesnt_exist"
-    elif echo "$2" | grep -Ev '^[[:alnum:]]+$' > /dev/null; then
-        echo "ERROR: Name *$2* is not alphanumeric ..."
-        return "$name_not_alphanumeric"
     elif [[ -f "$2.md" ]]; then
         echo "ERROR: Name *$2* already exists ..."
         return "$name_already_exists"
+    elif echo "$2" | grep -Ev '^[[:alnum:]]+$' > /dev/null; then
+        echo "ERROR: Name *$2* is not alphanumeric ..."
+        return "$name_not_alphanumeric"
     fi
 
     mv $1.md $2.md
@@ -240,7 +240,6 @@ manage_todos() {
 
 if args=$(args_from_input "$@"); then
     manage_todos $args
-    (exit $?)
 else
     cat << EOF
 Invalid syntax ...
