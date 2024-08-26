@@ -2,7 +2,7 @@
 
 # To enable these modifications throughout bash,
 # source this file in your .bashrc file, like so:
-# . /bin/.custom_config
+# . ~/bin/.custom_config
 
 # enable custom commands
 export PATH=$PATH:~/bin

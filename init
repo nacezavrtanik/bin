@@ -3,7 +3,7 @@
 echo Initializing custom bash setup ...
 
 echo Installing packages ...
-sudo apt install fzf 
+sudo apt-get install fzf
 echo Installed fzf!
 
 echo Adding config to .bashrc ...
@@ -18,7 +18,7 @@ if [[ -z "$(cat ~/.bashrc | grep "$config_line")" ]]
         echo Config added to .bashrc!
     else
         echo Config in .bashrc had already been set up!
-fi        
+fi
 
 echo Setup complete!
 
