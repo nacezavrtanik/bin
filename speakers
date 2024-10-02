@@ -1,19 +1,19 @@
 #!/bin/bash
 
-speakers_id=C0:28:8D:3F:25:2C
-is_connected_flag="Connected: yes"
-info_string=$(echo -e "info $speakers_id" | bluetoothctl)
+speakers_id='C0:28:8D:3F:25:2C'
+is_not_connected_flag="Connected: no"
+info_string=$(echo "info $speakers_id" | bluetoothctl)
 
 echo "Toggling connection to speakers ..."
 
-if [[ $info_string != *"$is_connected_flag"* ]]; then
-    echo -e "power on" | bluetoothctl > /dev/null
+if echo "$info_string" | grep -q "$is_not_connected_flag"; then
+    echo power on | bluetoothctl > /dev/null
     sleep 0.5
-    echo -e "connect $speakers_id" | bluetoothctl > /dev/null
+    echo "connect $speakers_id" | bluetoothctl > /dev/null
     echo Connected.
 else
-    echo -e "disconnect $speakers_id" | bluetoothctl > /dev/null
-    echo -e "power off" | bluetoothctl > /dev/null
+    echo "disconnect $speakers_id" | bluetoothctl > /dev/null
+    echo power off | bluetoothctl > /dev/null
     echo Disconnected.
 fi
 
