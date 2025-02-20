@@ -1,19 +1,36 @@
 #!/bin/bash
 
-speakers_id='C0:28:8D:3F:25:2C'
-is_not_connected_flag="Connected: no"
-info_string=$(echo "info $speakers_id" | bluetoothctl)
+is_not_connected() {
+    speakers_id='C0:28:8D:3F:25:2C'
+    is_not_connected_flag="Connected: no"
+    echo "info $speakers_id" | bluetoothctl | grep -q "$is_not_connected_flag"
+}
 
-echo "Toggling connection to speakers ..."
-
-if echo "$info_string" | grep -q "$is_not_connected_flag"; then
+connect() {
     echo power on | bluetoothctl > /dev/null
     sleep 0.5
     echo "connect $speakers_id" | bluetoothctl > /dev/null
-    echo Connected.
-else
+    thresh=50
+    counter=0
+    while is_not_connected; do
+        if [ "$counter" -gt "$thresh" ]; then
+            echo -ne "\033[1K"
+            echo -e "\rUnable to connect."
+            return 1
+        fi
+        echo -n .
+        sleep 0.1
+        counter=$(($counter + 1))
+    done
+    echo -ne "\033[1K"
+    echo -e "\rConnected."
+}
+
+disconnect() {
     echo "disconnect $speakers_id" | bluetoothctl > /dev/null
     echo power off | bluetoothctl > /dev/null
     echo Disconnected.
-fi
+}
 
+echo Toggling connection to speakers ...
+if is_not_connected; then connect; else disconnect; fi
