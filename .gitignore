@@ -11,3 +11,5 @@ todo.md
 # vim backup files
 *.swp
 
+# tmux sessions setup
+.sessions
