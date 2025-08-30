@@ -1,0 +1,27 @@
+#!/bin/bash
+
+setup_sessions() {
+if $(tmux ls > /dev/null 2>&1); then
+    echo ERROR: tmux server already running!
+    return 1
+fi
+
+here=$(pwd)
+cd
+
+s0=todo
+echo 0: "$s0"
+tmux new-session -d -s "$s0"
+tmux send-keys -t "$s0" 'todo' C-m
+tmux new-window -t "$s0"
+tmux select-window -t "$s0":1
+
+. .sessions
+
+cd "$here"
+tmux attach-session -t "$s0" \; detach
+}
+
+
+setup_sessions
+
