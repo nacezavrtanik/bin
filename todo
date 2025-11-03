@@ -119,7 +119,12 @@ initial_dir=$(pwd)
 todos_dir=~/bin/.todos/
 [ -d "$todos_dir" ] || mkdir $todos_dir
 default_name=todo
-[ -f "$todos_dir/$default_name.md" ] || touch $todos_dir/$default_name.md
+[ -f "$todos_dir/$default_name.md" ] || cat << EOF > $todos_dir/$default_name.md
+
+TODO
+====
+
+EOF
 default_flag=--open
 
 
