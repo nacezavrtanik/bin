@@ -22,5 +22,35 @@ if [[ -z "$(cat ~/.bashrc | grep "$config_line")" ]]
         echo Config in .bashrc had already been set up!
 fi
 
+echo Adding config to .vimrc ...
+config_line="source ~/bin/.vimrc"
+config_segment="
+\" CUSTOM MODIFICATIONS
+$config_line
+"
+touch ~/.vimrc
+if [[ -z "$(cat ~/.vimrc | grep "$config_line")" ]]
+    then
+        echo "$config_segment" >> ~/.vimrc
+        echo Config added to .vimrc!
+    else
+        echo Config in .vimrc had already been set up!
+fi
+
+echo Adding config to .tmux.conf ...
+config_line="source-file ~/bin/.tmux.conf"
+config_segment="
+# CUSTOM MODIFICATIONS
+$config_line
+"
+touch ~/.tmux.conf
+if [[ -z "$(cat ~/.tmux.conf | grep "$config_line")" ]]
+    then
+        echo "$config_segment" >> ~/.tmux.conf
+        echo Config added to .tmux.conf!
+    else
+        echo Config in .tmux.conf had already been set up!
+fi
+
 echo Setup complete!
 
