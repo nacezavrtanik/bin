@@ -16,7 +16,9 @@ tmux send-keys -t "$s0" 'todo' C-m
 tmux new-window -t "$s0"
 tmux select-window -t "$s0":1
 
-. .sessions
+if [ -f ~/bin/.sessions ]; then
+    . ~/bin/.sessions
+fi
 
 cd "$here"
 tmux attach-session -t "$s0" \; detach
