@@ -3,6 +3,8 @@
 echo Initializing custom bash setup ...
 
 echo Installing packages ...
+sudo apt-get install tmux
+echo Installed tmux!
 sudo apt-get install fzf
 echo Installed fzf!
 
