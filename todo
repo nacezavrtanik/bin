@@ -127,13 +127,13 @@ default_flag=--open
 
 
 args_from_input() {
-	case $# in
-		0)
-			flag=$default_flag
+    case $# in
+        0)
+            flag=$default_flag
             name=$default_name
-			;;
+            ;;
 
-		1)
+        1)
             case $1 in
                 -h | --help | \
                 -l | --list | \
@@ -148,9 +148,9 @@ args_from_input() {
                     name=$1
                     ;;
             esac
-			;;
+            ;;
 
-		2)
+        2)
             case $1 in
                 -d | --delete | \
                 -n | --new | \
@@ -176,11 +176,11 @@ args_from_input() {
             fi
             ;;
 
-		*)
-			return "$invalid_syntax"
-			;;
-	esac
-	printf -- "$flag $name $name2"
+        *)
+            return "$invalid_syntax"
+            ;;
+    esac
+    printf -- "$flag $name $name2"
 }
 
 manage_todos() {
