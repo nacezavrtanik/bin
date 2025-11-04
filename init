@@ -1,17 +1,17 @@
 #!/bin/bash
 
-echo Initializing custom bash setup ...
+echo Initializing custom setup ...
 
-echo Installing packages ...
+# Install packages
 sudo apt-get install tmux
 echo Installed tmux!
 sudo apt-get install fzf
 echo Installed fzf!
 
-echo Adding config to .bashrc ...
-config_line=". ~/bin/.custom_config"
+# .bashrc additions
+config_line=". ~/bin/.bashrc"
 config_segment="
-# CUSTOM MODIFICATIONS
+# PERSONAL ADDITIONS
 $config_line
 "
 if [[ -z "$(cat ~/.bashrc | grep "$config_line")" ]]
@@ -22,10 +22,10 @@ if [[ -z "$(cat ~/.bashrc | grep "$config_line")" ]]
         echo Config in .bashrc had already been set up!
 fi
 
-echo Adding config to .vimrc ...
+# .vimrc additions
 config_line="source ~/bin/.vimrc"
 config_segment="
-\" CUSTOM MODIFICATIONS
+\" PERSONAL ADDITIONS
 $config_line
 "
 touch ~/.vimrc
@@ -37,10 +37,10 @@ if [[ -z "$(cat ~/.vimrc | grep "$config_line")" ]]
         echo Config in .vimrc had already been set up!
 fi
 
-echo Adding config to .tmux.conf ...
+# .tmux.conf additions
 config_line="source-file ~/bin/.tmux.conf"
 config_segment="
-# CUSTOM MODIFICATIONS
+# PERSONAL ADDITIONS
 $config_line
 "
 touch ~/.tmux.conf
