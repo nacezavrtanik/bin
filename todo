@@ -45,7 +45,8 @@ delete() {
 list() {
     ls -1 |
         grep '.md$' |
-        sed -e 's/^/* /' -e 's/.md$//'
+        sed -e 's/^/* /' -e 's/.md$//' |
+        less -F
 }
 
 new() {
