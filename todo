@@ -108,8 +108,7 @@ show() {
         return "$name_doesnt_exist"
     fi
 
-    clear
-    cat "$1.md"
+    less -F "$1.md"
 }
 
 
