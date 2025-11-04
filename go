@@ -6,8 +6,12 @@ else
     pointer_color=black
 fi
 
+actions_pre_file=~/bin/.actions_pre
+actions_post_file=~/bin/.actions_post
+actions_file=~/bin/.actions
+touch "$actions_pre_file" "$actions_file" "$actions_post_file"
 action=$(\
-    cat ~/bin/.actions |
+    cat "$actions_pre_file" "$actions_file" "$actions_post_file" |
     grep -v -e "^[[:space:]]*$" |
     fzf --height 33% \
         --layout reverse \

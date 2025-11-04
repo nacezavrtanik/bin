@@ -1,19 +1,2 @@
-speakers
-
 setmux
-
-. color white
-. color black
-. color red
-. color green
-. color blue
-. color cyan
-. color yellow
-. color magenta
-
-recite krst_pri_savici
-recite song_of_myself
-recite tabacaria
-recite the_waste_land
-recite ulysses
 
