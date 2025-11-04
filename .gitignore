@@ -1,7 +1,3 @@
-# personal files for working in this repo
-setup
-todo.md
-
 # todos dir for use with todo command
 .todos/
 
@@ -13,3 +9,7 @@ todo.md
 
 # tmux sessions setup
 .sessions
+
+# command presets to filter with the go command
+.actions_pre
+.actions_post
