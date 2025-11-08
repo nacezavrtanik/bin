@@ -10,19 +10,17 @@ here=$(pwd)
 
 s0=todo
 cd
-tmux new-session -d -s "$s0"
-tmux send-keys -t "$s0" 'todo' C-m
-tmux new-window -t "$s0"
+tmux new-session -d -s "$s0" -n todo 'todo --open'
+tmux new-window -t "$s0":2
 tmux select-window -t "$s0":1
 echo 0: "$s0"
 
 s1=bin
 cd ~/bin
-todo -l | grep -xq '\* bin' || todo -n bin
+todo --list | grep -xq '\* bin' || todo --new bin
 tmux new-session -d -s "$s1"
-tmux new-window -t "$s1"
-tmux new-window -t "$s1" -n 'todo'
-tmux send-keys -t "$s1" 'todo -o bin' C-m
+tmux new-window -t "$s1":2
+tmux new-window -t "$s1":3 -n todo 'todo --open bin'
 tmux select-window -t "$s1":1
 echo 1: "$s1"
 
