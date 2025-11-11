@@ -1,0 +1,7 @@
+# Do not modify this file. Add any config to:
+# ~/.config/alacritty/alacritty_additional.toml
+
+import = [
+    "~/bin/alacritty/alacritty_common.toml",
+    "~/.config/alacritty/alacritty_additional.toml",
+]

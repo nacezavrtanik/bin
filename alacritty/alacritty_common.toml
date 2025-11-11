@@ -1,0 +1,35 @@
+
+import = [
+    "~/bin/alacritty/themes/seashells.toml"
+]
+
+[window]
+opacity = 0.80
+blur = true
+decorations = "None"
+startup_mode = "Fullscreen"
+
+[window.padding]
+x = 2
+y = 2
+
+[font]
+size = 18.0
+
+[cursor]
+style = "Block"
+unfocused_hollow = true
+
+[[keyboard.bindings]]
+action = "Paste"
+key = "V"
+mods = "Control|Shift"
+
+[[keyboard.bindings]]
+action = "Copy"
+key = "C"
+mods = "Control|Shift"
+
+[[keyboard.bindings]]
+key = "F11"
+action = "ToggleFullscreen"

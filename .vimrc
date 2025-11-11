@@ -1,5 +1,6 @@
 
-colorscheme sorbet
+set background=dark
+colorscheme quiet
 set colorcolumn=80
 set cursorline
 
