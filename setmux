@@ -21,7 +21,6 @@ todo --list | grep -xq '\* bin' || todo --new bin
 tmux new-session -d -s "$s1"
 tmux new-window -t "$s1":2
 tmux new-window -t "$s1":3 -n todo 'todo --open bin'
-tmux select-window -t "$s1":1
 echo 1: "$s1"
 
 if [ -f ~/bin/.sessions ]; then
