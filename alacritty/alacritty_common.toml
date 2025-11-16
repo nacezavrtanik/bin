@@ -5,13 +5,8 @@ import = [
 
 [window]
 opacity = 1.0
-blur = true
 decorations = "None"
 startup_mode = "Fullscreen"
-
-[window.padding]
-x = 2
-y = 2
 
 [font]
 size = 18.0
