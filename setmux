@@ -8,27 +8,29 @@ fi
 
 here=$(pwd)
 
-s0=todo
+s0=null
 cd
-tmux new-session -d -s "$s0" -n todo 'todo --open'
-tmux new-window -t "$s0":2
-tmux select-window -t "$s0":1
+tmux new-session -d -s "$s0"
 echo 0: "$s0"
+s1=todo
+cd
+tmux new-session -d -s "$s1" -n todo 'todo --open'
+echo 1: "$s1"
 
-s1=bin
+s2=bin
 cd ~/bin
 todo --list | grep -xq '\* bin' || todo --new bin
-tmux new-session -d -s "$s1"
-tmux new-window -t "$s1":2
-tmux new-window -t "$s1":3 -n todo 'todo --open bin'
-echo 1: "$s1"
+tmux new-session -d -s "$s2"
+tmux new-window -t "$s2":2
+tmux new-window -t "$s2":3 -n todo 'todo --open bin'
+echo 2: "$s2"
 
 if [ -f ~/bin/.sessions ]; then
     . ~/bin/.sessions
 fi
 
 cd "$here"
-tmux attach-session -t "$s0" \; detach
+tmux attach-session -t "$s1" \; detach
 }
 
 
