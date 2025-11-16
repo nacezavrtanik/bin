@@ -1,6 +1,6 @@
 
-set background=dark
-colorscheme quiet
+set runtimepath+=~/bin/
+colorscheme seashells
 set colorcolumn=80
 set cursorline
 
