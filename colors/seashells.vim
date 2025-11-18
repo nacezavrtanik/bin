@@ -129,7 +129,7 @@ hi MatchParen ctermfg=3 ctermbg=NONE cterm=bold
 hi VisualNOS ctermfg=16 ctermbg=73 cterm=NONE
 hi CursorLine ctermfg=NONE ctermbg=235 cterm=NONE
 hi CursorColumn ctermfg=NONE ctermbg=235 cterm=NONE
-hi Folded ctermfg=243 ctermbg=236 cterm=NONE
+hi Folded ctermfg=241 ctermbg=234 cterm=NONE
 hi ColorColumn ctermfg=NONE ctermbg=235 cterm=NONE
 hi SpellBad ctermfg=203 ctermbg=NONE cterm=underline
 hi SpellCap ctermfg=73 ctermbg=NONE cterm=underline
@@ -149,7 +149,7 @@ hi Directory ctermfg=10 ctermbg=NONE cterm=bold
 hi Conceal ctermfg=NONE ctermbg=NONE cterm=NONE
 hi Ignore ctermfg=NONE ctermbg=NONE cterm=NONE
 hi DiffAdd ctermfg=49 ctermbg=23 cterm=NONE
-hi DiffChange ctermfg=NONE ctermbg=235 cterm=NONE
+hi DiffChange ctermfg=NONE ctermbg=234 cterm=NONE
 hi DiffText ctermfg=51 ctermbg=25 cterm=NONE
 hi DiffDelete ctermfg=16 ctermbg=16 cterm=NONE
 hi diffAdded ctermfg=77 ctermbg=NONE cterm=NONE
