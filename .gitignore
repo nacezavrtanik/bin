@@ -4,9 +4,6 @@
 # theme config file
 .theme
 
-# vim backup files
-*.swp
-
 # tmux sessions setup
 .sessions
 
