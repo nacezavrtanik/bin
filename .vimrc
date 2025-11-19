@@ -26,4 +26,4 @@ set hidden
 
 autocmd BufWritePre * :%s/\s\+$//e
 
-set diffopt=vertical,closeoff,filler
+set diffopt=vertical,closeoff,hiddenoff,filler
