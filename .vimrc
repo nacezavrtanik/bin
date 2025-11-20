@@ -4,6 +4,9 @@ colorscheme seashells
 set colorcolumn=80
 set cursorline
 
+set rulerformat=%3(%P%)
+set statusline=%<%t\ %m%h%r%=%P
+
 set number
 set relativenumber
 set scrolloff=10
