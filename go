@@ -1,9 +1,9 @@
 #!/bin/bash
 
-if [[ -f ~/bin/theme ]]; then
-    pointer_color=$(< ~/bin/.theme)
+if [[ -f ~/bin/.theme ]]; then
+    theme_color=$(< ~/bin/.theme)
 else
-    pointer_color=black
+    theme_color=black
 fi
 
 actions_pre_file=~/bin/.actions_pre
@@ -20,7 +20,7 @@ action=$(\
         --prompt "<filter> " \
         --pointer " >" \
         --cycle \
-        --color "prompt:black,pointer:$pointer_color" \
+        --color "prompt:$theme_color,pointer:$theme_color" \
         --query "$1" \
         --select-1 \
 )
