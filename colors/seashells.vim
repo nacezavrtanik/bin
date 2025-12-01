@@ -114,8 +114,8 @@ hi SignColumn ctermfg=NONE ctermbg=NONE cterm=NONE
 hi Error ctermfg=16 ctermbg=darkred cterm=BOLD
 hi ErrorMsg ctermfg=16 ctermbg=darkred cterm=NONE
 hi ModeMsg ctermfg=darkred ctermbg=16 cterm=reverse,bold
-hi MoreMsg ctermfg=77 ctermbg=NONE cterm=NONE
-hi Question ctermfg=213 ctermbg=NONE cterm=NONE
+hi MoreMsg ctermfg=5 ctermbg=NONE cterm=NONE
+hi Question ctermfg=9 ctermbg=NONE cterm=NONE
 hi WarningMsg ctermfg=darkred ctermbg=16 cterm=bold
 hi Todo ctermfg=red ctermbg=16 cterm=reverse
 hi Search ctermfg=3 ctermbg=16 cterm=NONE
