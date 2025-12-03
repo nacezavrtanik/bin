@@ -7,18 +7,27 @@ exit 1
 
 if [[ ! $1 ]]; then usage; fi
 
-file_directory="${HOME}/Documents/text/pesmi/"
-file_name="${1}.txt"
+file_directory="$HOME/bin/poetry/"
+file_name="${1}.md"
 file_path="${file_directory}${file_name}"
 
-if [[ ! -f $file_path ]]; then
+echo "$file_path"
+if [[ ! -f "$file_path" ]]; then
 	echo "Invalid title argument: $1"
 	exit 1
 fi
 
-clear
+width=$(tput cols)
+tput clear civis
+stty -echo
+trap 'stty echo; tput cnorm' EXIT
+
 while read -N1 character; do
 	printf %s "$character"
-	sleep 0.1
+	read -t 0.1 input < /dev/tty
+    if [ "$input" = "q" ]; then
+        echo -e "\n"
+        break
+    fi
 done < "$file_path"
 
