@@ -7,30 +7,33 @@ if $(tmux ls > /dev/null 2>&1); then
 fi
 
 here=$(pwd)
+sess_num=0
 
-s0=null
+s=null
 cd
-tmux new-session -d -s "$s0"
-echo 0: "$s0"
-s1=todo
-cd
-tmux new-session -d -s "$s1" -n todo 'todo --open'
-echo 1: "$s1"
+tmux new-session -d -s "$s"
+echo "$((sess_num++)): $s"
 
-s2=bin
+s=todo
+initial="$s"
+cd
+tmux new-session -d -s "$s" -n todo 'todo --open'
+echo "$((sess_num++)): $s"
+
+s=bin
 cd ~/bin
 todo --list | grep -xq '\* bin' || todo --new bin
-tmux new-session -d -s "$s2"
-tmux new-window -t "$s2":2
-tmux new-window -t "$s2":3 -n todo 'todo --open bin'
-echo 2: "$s2"
+tmux new-session -d -s "$s"
+tmux new-window -t "$s":2
+tmux new-window -t "$s":3 -n todo 'todo --open bin'
+echo "$((sess_num++)): $s"
 
 if [ -f ~/bin/.sessions ]; then
-    . ~/bin/.sessions
+    . ~/bin/.sessions "$sess_num"
 fi
 
 cd "$here"
-tmux attach-session -t "$s1" \; detach
+tmux attach-session -t "$initial" \; detach
 }
 
 
