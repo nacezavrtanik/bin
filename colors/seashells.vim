@@ -95,7 +95,7 @@ hi TabLineFill ctermfg=7 ctermbg=8 cterm=NONE
 hi TabLineSel ctermfg=black ctermbg=7 cterm=bold
 hi ToolbarLine ctermfg=NONE ctermbg=NONE cterm=NONE
 hi ToolbarButton ctermfg=16 ctermbg=231 cterm=NONE
-hi QuickFixLine ctermfg=16 ctermbg=75 cterm=NONE
+hi QuickFixLine ctermfg=16 ctermbg=7 cterm=NONE
 hi CursorLineNr ctermfg=3 ctermbg=NONE cterm=bold
 hi LineNr ctermfg=4 ctermbg=NONE cterm=NONE
 hi NonText ctermfg=240 ctermbg=NONE cterm=NONE
