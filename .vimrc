@@ -1,4 +1,6 @@
 
+let mapleader = " "
+
 set runtimepath+=~/bin/
 colorscheme seashells
 set colorcolumn=80
@@ -14,6 +16,11 @@ set scrolloff=10
 set hlsearch
 set incsearch
 nnoremap <C-l> :nohlsearch<CR><C-l>
+
+nnoremap <Leader>cn :cnext<CR>
+nnoremap <Leader>cp :cprev<CR>
+nnoremap <Leader>co :copen 15<CR>
+nnoremap <Leader>cc :cclose<CR>
 
 set splitright
 set splitbelow
