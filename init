@@ -72,6 +72,7 @@ git config --global init.defaultbranch main
 git config --global advice.detachedhead false
 git config --global diff.tool vimdiff
 git config --global difftool.prompt false
+git config --global alias.df "difftool"
 git config --global alias.adog "log --all --decorate --oneline --graph"
 echo "Config for git (global) set up!"
 
