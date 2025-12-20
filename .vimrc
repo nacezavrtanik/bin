@@ -21,6 +21,8 @@ nnoremap <Leader>cn :cnext<CR>
 nnoremap <Leader>cp :cprev<CR>
 nnoremap <Leader>co :copen 15<CR>
 nnoremap <Leader>cc :cclose<CR>
+nnoremap <Leader>cf :cfirst<CR>
+nnoremap <Leader>cl :clast<CR>
 
 set splitright
 set splitbelow
