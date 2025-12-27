@@ -5,7 +5,7 @@ echo Initializing custom setup ...
 # Install packages
 sudo apt-get update
 [ -n "$WAYLAND_DISPLAY" ] && clip_tool=wl-clipboard || clip_tool=xclip
-sudo apt-get install -y git vim-gtk3 tmux "$clip_tool" fzf alacritty
+sudo apt-get install -y git ripgrep vim-gtk3 tmux "$clip_tool" fzf alacritty
 
 # .bashrc additions
 config_line=". ~/bin/.bashrc"

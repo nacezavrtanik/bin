@@ -17,6 +17,8 @@ set hlsearch
 set incsearch
 nnoremap <C-l> :nohlsearch<CR><C-l>
 
+set grepprg=rg\ --vimgrep\ --smart-case
+
 nnoremap <Leader>cn :cnext<CR>
 nnoremap <Leader>cp :cprev<CR>
 nnoremap <Leader>co :copen 15<CR>
