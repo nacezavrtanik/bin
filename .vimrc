@@ -7,6 +7,21 @@ set cursorline
 
 set rulerformat=%3(%P%)
 set statusline=%<%t\ %m%h%r%=%P
+set tabline=%!MyNumberTabs()
+function! MyNumberTabs()
+    let s = ''
+    for i in range(tabpagenr('$'))
+        let tabnr = i + 1
+        if tabnr == tabpagenr()
+            let s .= '%#TabLineSel#'
+        else
+            let s .= '%#TabLine#'
+        endif
+        let s .= ' ' . tabnr . ' '
+    endfor
+    let s .= '%#TabLineFill#'
+    return s
+endfunction
 
 set number
 set relativenumber
