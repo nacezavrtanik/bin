@@ -88,14 +88,14 @@ hi! link PopupNotification Todo
 
 hi Normal ctermfg=251 ctermbg=16
 hi Statusline ctermfg=7 ctermbg=black cterm=bold,reverse
-hi StatuslineNC ctermfg=8 ctermbg=7 cterm=reverse
-hi VertSplit ctermfg=8 ctermbg=8 cterm=NONE
-hi TabLine ctermfg=7 ctermbg=8 cterm=NONE
-hi TabLineFill ctermfg=7 ctermbg=8 cterm=NONE
+hi StatuslineNC ctermfg=235 ctermbg=8 cterm=reverse
+hi VertSplit ctermfg=235 ctermbg=235 cterm=NONE
+hi TabLine ctermfg=8 ctermbg=235 cterm=NONE
+hi TabLineFill ctermfg=7 ctermbg=235 cterm=NONE
 hi TabLineSel ctermfg=black ctermbg=7 cterm=bold
 hi ToolbarLine ctermfg=NONE ctermbg=NONE cterm=NONE
 hi ToolbarButton ctermfg=16 ctermbg=231 cterm=NONE
-hi QuickFixLine ctermfg=16 ctermbg=7 cterm=NONE
+hi QuickFixLine ctermfg=7 ctermbg=234 cterm=NONE
 hi CursorLineNr ctermfg=3 ctermbg=NONE cterm=bold
 hi LineNr ctermfg=4 ctermbg=NONE cterm=NONE
 hi NonText ctermfg=240 ctermbg=NONE cterm=NONE
@@ -127,7 +127,7 @@ hi debugBreakpoint ctermfg=73 ctermbg=NONE cterm=reverse
 hi Visual ctermfg=16 ctermbg=3 cterm=NONE
 hi MatchParen ctermfg=3 ctermbg=NONE cterm=bold
 hi VisualNOS ctermfg=16 ctermbg=73 cterm=NONE
-hi CursorLine ctermfg=NONE ctermbg=235 cterm=NONE
+hi CursorLine ctermfg=NONE ctermbg=NONE cterm=NONE
 hi CursorColumn ctermfg=NONE ctermbg=235 cterm=NONE
 hi Folded ctermfg=241 ctermbg=234 cterm=NONE
 hi ColorColumn ctermfg=NONE ctermbg=235 cterm=NONE
