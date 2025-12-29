@@ -25,6 +25,7 @@ nnoremap <Leader>co :copen 15<CR>
 nnoremap <Leader>cc :cclose<CR>
 nnoremap <Leader>cf :cfirst<CR>
 nnoremap <Leader>cl :clast<CR>
+autocmd QuickFixCmdPost grep cwindow
 
 set splitright
 set splitbelow
