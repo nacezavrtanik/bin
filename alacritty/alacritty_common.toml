@@ -1,6 +1,6 @@
 
 import = [
-    "~/bin/alacritty/themes/seashells.toml"
+    "~/bin/alacritty/themes/memories.toml"
 ]
 
 [window]

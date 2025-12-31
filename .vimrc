@@ -2,7 +2,7 @@
 let mapleader = " "
 
 set runtimepath+=~/bin/
-colorscheme seashells
+colorscheme memories
 set cursorline
 
 set rulerformat=%3(%P%)
