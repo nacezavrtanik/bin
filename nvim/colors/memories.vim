@@ -7,7 +7,6 @@
 " Loosely based on the `lunaperche` Vim colorscheme.
 
 set background=dark
-set notermguicolors
 
 hi clear
 let g:colors_name = 'memories'
@@ -171,7 +170,7 @@ hi GreyedOut ctermfg=239 ctermbg=NONE cterm=italic
 hi Folded ctermfg=239 ctermbg=234 cterm=NONE
 hi ColorColumn ctermfg=NONE ctermbg=234 cterm=NONE
 hi CursorColumn ctermfg=NONE ctermbg=234 cterm=NONE
-hi CursorLine ctermfg=NONE ctermbg=NONE cterm=NONE
+hi CursorLine ctermfg=NONE ctermbg=234 cterm=NONE
 hi Underlined ctermfg=NONE ctermbg=NONE cterm=underline
 hi BoldBright ctermfg=254 ctermbg=NONE cterm=bold
 

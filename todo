@@ -16,7 +16,7 @@ Options:
   -h, --help      display this help and exit
   -l, --list      list all TODOs
   -n, --new       create new TODO with name NAME
-  -o, --open      open TODO with name NAME in Vim;
+  -o, --open      open TODO with name NAME in Neovim;
                     this is the default option if OPTION is not specified;
                     if NAME is not specified, the default TODO is opened
   -r, --rename    rename TODO with name NAME to TODO with name NAME2
@@ -72,7 +72,7 @@ open() {
         return "$name_doesnt_exist"
     fi
 
-    vim "$1.md"
+    nvim "$1.md"
 }
 
 rename() {
