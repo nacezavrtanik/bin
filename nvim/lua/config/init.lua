@@ -11,6 +11,8 @@ vim.o.rulerformat = "%3(%P%)"
 vim.o.statusline = [[%<%t %m%h%r%=%P]]
 vim.o.laststatus = 1
 vim.o.showcmd = false
+vim.o.breakindent = true
+vim.o.showbreak = "~"
 
 vim.o.number = true
 vim.o.relativenumber = true
