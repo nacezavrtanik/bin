@@ -16,6 +16,7 @@ else
     git clone --depth=1 --branch=nightly \
         https://github.com/neovim/neovim $nvim_repo
     cd $nvim_repo
+    sudo apt-get install cmake
     make CMAKE_BUILD_TYPE=RelWithDebInfo
     sudo make install
     cd - > /dev/null
