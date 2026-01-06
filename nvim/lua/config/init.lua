@@ -14,6 +14,23 @@ vim.o.showcmd = false
 vim.o.breakindent = true
 vim.o.showbreak = "~"
 
+local function get_tabline()
+    local tabline = {}
+    local tabnr_max = vim.fn.tabpagenr("$")
+    local tabnr_sel = vim.fn.tabpagenr()
+    for tabnr = 1, tabnr_max do
+        if tabnr == tabnr_sel then
+            tabline[#tabline+1] = "%#TabLineSel#"
+        else
+            tabline[#tabline+1] = "%#TabLine#"
+        end
+        tabline[#tabline+1] = " " .. tabnr .. " "
+    end
+    tabline[#tabline+1] = "%#TabLineFill#"
+    return table.concat(tabline)
+end
+vim.o.tabline="%!v:lua.get_tabline()"
+
 vim.o.number = true
 vim.o.relativenumber = true
 vim.o.scrolloff = 10
@@ -55,22 +72,3 @@ vim.api.nvim_create_autocmd(
         end,
     }
 )
-
-vim.cmd([[
-set tabline=%!MyNumberTabs()
-function! MyNumberTabs()
-    let s = ''
-    for i in range(tabpagenr('$'))
-        let tabnr = i + 1
-        if tabnr == tabpagenr()
-            let s .= '%#TabLineSel#'
-        else
-            let s .= '%#TabLine#'
-        endif
-        let s .= ' ' . tabnr . ' '
-    endfor
-    let s .= '%#TabLineFill#'
-    return s
-endfunction
-]])
-
