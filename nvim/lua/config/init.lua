@@ -14,7 +14,7 @@ vim.o.showcmd = false
 vim.o.breakindent = true
 vim.o.showbreak = "~"
 
-local function get_tabline()
+function _G.get_tabline()
     local tabline = {}
     local tabnr_max = vim.fn.tabpagenr("$")
     local tabnr_sel = vim.fn.tabpagenr()
