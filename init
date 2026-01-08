@@ -4,8 +4,7 @@ echo Initializing custom setup ...
 
 # Install packages
 sudo apt-get update
-[ -n "$WAYLAND_DISPLAY" ] && clip_tool=wl-clipboard || clip_tool=xclip
-sudo apt-get install -y git ripgrep tmux "$clip_tool" fzf alacritty
+sudo apt-get install -y git tmux alacritty fzf ripgrep
 
 # Compile nvim
 if command -v nvim > /dev/null 2>&1; then
@@ -16,7 +15,7 @@ else
     git clone --depth=1 --branch=nightly \
         https://github.com/neovim/neovim $nvim_repo
     cd $nvim_repo
-    sudo apt-get install cmake
+    sudo apt-get install -y cmake
     make CMAKE_BUILD_TYPE=RelWithDebInfo
     sudo make install
     cd - > /dev/null

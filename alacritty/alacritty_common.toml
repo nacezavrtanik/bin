@@ -16,6 +16,9 @@ size = 18.0
 style = "Block"
 unfocused_hollow = true
 
+[terminal]
+osc52 = "OnlyCopy"
+
 [[keyboard.bindings]]
 action = "Paste"
 key = "V"
